@@ -1,7 +1,7 @@
 const params = new URLSearchParams(location.search);
 const config = {
   livekitUrl: params.get('lk') || localStorage.getItem('phonecam.lk') || '',
-  tokenApi: params.get('api') || localStorage.getItem('phonecam.api') || ''
+  tokenApi: params.get('api') || localStorage.getItem('phonecam.api') || 'https://phonecam-token-api.onrender.com'
 };
 const $ = (q) => document.querySelector(q);
 const status = (text, live = false) => {

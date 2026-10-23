@@ -85,7 +85,7 @@ if (document.body.dataset.page === 'mobile') {
     $('#start').disabled = true;
     try {
       const { room, RoomEvent, createLocalVideoTrack } = await join('publisher');
-      const track = await createLocalVideoTrack({ facingMode: 'environment', resolution: { width: 1280, height: 720 } });
+      const track = await createLocalVideoTrack({ facingMode: 'environment', resolution: { width: 1920, height: 1080 } });
       track.attach($('#camera'));
       await room.localParticipant.publishTrack(track);
       $('#placeholder').hidden = true; $('#camera').hidden = false;

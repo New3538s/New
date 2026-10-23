@@ -30,7 +30,7 @@ async function join(role) {
   if (!response.ok) throw new Error((await response.text()) || `Token API error ${response.status}`);
   const { token } = await response.json();
   const { Room, RoomEvent, createLocalVideoTrack, Track } = await import('https://cdn.jsdelivr.net/npm/livekit-client@2.15.6/dist/livekit-client.esm.mjs');
-  const room = new Room({ adaptiveStream: true, dynacast: true });
+  const room = new Room({ adaptiveStream: false, dynacast: true });
   await room.connect(config.livekitUrl, token);
   return { room, RoomEvent, createLocalVideoTrack, Track, roomName };
 }
@@ -85,9 +85,9 @@ if (document.body.dataset.page === 'mobile') {
     $('#start').disabled = true;
     try {
       const { room, RoomEvent, createLocalVideoTrack } = await join('publisher');
-      const track = await createLocalVideoTrack({ facingMode: 'environment', resolution: { width: 1920, height: 1080 } });
+      const track = await createLocalVideoTrack({ facingMode: 'environment', resolution: { width: 1920, height: 1080 }, frameRate: 30 });
       track.attach($('#camera'));
-      await room.localParticipant.publishTrack(track);
+      await room.localParticipant.publishTrack(track, { videoEncoding: { maxBitrate: 4_000_000, maxFramerate: 30 }, simulcast: false });
       $('#placeholder').hidden = true; $('#camera').hidden = false;
       status('กำลังส่งภาพไปยังคอม', true); $('#start').textContent = 'กำลังถ่ายทอด';
       room.on(RoomEvent.Disconnected, () => status('การเชื่อมต่อขาดหาย'));

@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: phonecam-token-api
+    runtime: node
+    rootDir: token-api
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: LIVEKIT_API_KEY
+        sync: false
+      - key: LIVEKIT_API_SECRET
+        sync: false
+      - key: ALLOWED_ORIGIN
+        sync: false

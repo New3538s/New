@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { AccessToken } from '@livekit/server-sdk';
+import { AccessToken } from 'livekit-server-sdk';
 import { randomUUID } from 'node:crypto';
 
 const app = express();
